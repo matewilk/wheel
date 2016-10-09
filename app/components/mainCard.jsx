@@ -11,8 +11,12 @@ let MainCard = React.createClass({
     });
   },
 
-  handleTouchTap: function () {
-    socket.emit('client-emit', 'blah!!');
+  joinRoom: function () {
+    socket.emit('join', {room: 'abc'});
+  },
+
+  generateCode: function () {
+    socket.emit('client-emit', Math.random());
   },
 
   render: function () {
@@ -24,10 +28,15 @@ let MainCard = React.createClass({
         />
         <CardActions>
           <RaisedButton
-            label='Spin'
+            label='Join Room'
             primary={true}
-            onTouchTap={this.handleTouchTap}
-        />
+            onTouchTap={this.joinRoom}
+          />
+          <RaisedButton
+            label='Generate Code'
+            primary={true}
+            onTouchTap={this.generateCode}
+          />
         </CardActions>
       </Card>
     );

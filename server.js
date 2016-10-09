@@ -9,12 +9,20 @@ server.listen(3000, function () {
 
 let io = require('socket.io')(server);
 
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
   console.log('client connected');
+
+  let room;
+  socket.on('join', function (data) {
+    room = data.room;
+    console.log(room);
+    socket.join(room);
+  });
 
   socket.on('client-emit', (message) => {
     console.log(message);
-    socket.emit('server-emit', message);
+    console.log(room);
+    io.sockets.in(room).emit('server-emit', message);
   });
 
   socket.on('disconnect', () => {
