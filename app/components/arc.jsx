@@ -16,7 +16,7 @@ class Arc extends React.Component {
 
   render () {
     let path = this.generateArc();
-    let rotation = this.props.rotation;
+    let rotation = this.props.message.data || 0;
 
     let transorm = `translate(50, 50) rotate(${rotation.toString()})`;
     return (

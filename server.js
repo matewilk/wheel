@@ -22,7 +22,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('client-emit', (message) => {
     console.log(message);
     console.log(room);
-    io.sockets.in(room).emit('server-emit', message);
+    io.sockets.in(room).emit('server-emit', {data: message});
   });
 
   socket.on('disconnect', () => {
