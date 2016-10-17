@@ -34,7 +34,11 @@ class WebSocket extends React.Component {
 
   render () {
     return (
-      <MainCard {...this.state} joinRoom={this.joinRoom} generateCode={this.generateCode.bind(this)} />
+      <MainCard
+        {...this.state}
+        joinRoom={this.joinRoom}
+        generateCode={this.generateCode.bind(this)}
+      />
     );
   }
 }
