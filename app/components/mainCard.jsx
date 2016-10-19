@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, CardHeader, CardMedia, CardActions, RaisedButton} from 'material-ui';
 
-import Wheel from './Wheel';
+import Svg from './Svg';
 
 class MainCard extends React.Component {
   render () {
@@ -12,7 +12,7 @@ class MainCard extends React.Component {
           subtitle='Card Subtitle'
         />
         <CardMedia style={{height: '50%', width: '50%', left: '25%'}}>
-          <Wheel {...this.props} />
+          <Svg {...this.props} />
         </CardMedia>
         <CardActions>
           <RaisedButton
