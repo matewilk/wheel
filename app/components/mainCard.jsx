@@ -1,5 +1,6 @@
 import React from 'react';
-import {Card, CardHeader, CardMedia, CardActions, RaisedButton} from 'material-ui';
+import {Row, Col} from 'react-flexbox-grid/lib/index';
+import {Card, CardHeader, CardMedia, CardActions, RaisedButton, TextField} from 'material-ui';
 
 import Svg from './Svg';
 
@@ -13,6 +14,26 @@ class MainCard extends React.Component {
         />
         <CardMedia style={{height: '50%', width: '50%', left: '25%'}}>
           <Svg {...this.props} />
+          <TextField
+            hintText={'50'}
+            floatingLabelText={'Amount'}
+          />
+          <Row between='xs' style={{width: 'none', maxWidth: 'none'}}>
+            <Col xs={6}>
+              <RaisedButton
+                label='Add'
+                primary={true}
+                fullWidth={true}
+              />
+            </Col>
+            <Col xs={6}>
+              <RaisedButton
+                label='Remove'
+                secondary={true}
+                fullWidth={true}
+              />
+            </Col>
+          </Row>
         </CardMedia>
         <CardActions>
           <RaisedButton

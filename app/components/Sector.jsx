@@ -8,7 +8,7 @@ class Sector extends React.Component {
     this.state = {
       x: 0,
       y: -60,
-      fillOpacity: 0.5
+      fillOpacity: 0
     };
     this.transition = d3.transition()
       .duration(2000).ease(d3.easeCubicInOut);
@@ -21,9 +21,9 @@ class Sector extends React.Component {
 
     node.transition(this.transition)
       .attr('y', 0)
-      .style('fill-opacity', 1)
+      .style('fill-opacity', 0.7)
       .on('end', () => {
-        this.setState({y: 0, fillOpacity: 1});
+        this.setState({y: 0, fillOpacity: 0.7});
         // callback();
       });
   }
@@ -38,8 +38,8 @@ class Sector extends React.Component {
 
   render () {
     return (
-      <g>
-        <path fillOpacity={this.state.fillOpacity} fill={this.props.fill} d={this.props.d} key={this.props.i} />
+      <g fillOpacity={this.state.fillOpacity}>
+        <path fill={this.props.fill} d={this.props.d} key={this.props.i} />
         <text fill='white' transform={this.props.center} textAnchor='middle' fontSize='6px'>{this.props.data.data.name}</text>
       </g>
     );

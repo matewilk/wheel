@@ -11,9 +11,7 @@ class Wheel extends React.Component {
       data: [],
       padAngle: 0.005
     };
-  }
 
-  componentWillMount () {
     this.pie = d3.pie()
       .value(function (d) { return d.count; })
       .padAngle(this.state.padAngle)
@@ -23,7 +21,9 @@ class Wheel extends React.Component {
       .outerRadius(45)
       .innerRadius(20)
       .cornerRadius(1);
+  }
 
+  componentDidMount () {
     this.color = d3.scaleOrdinal([
       '#E53935',
       '#D81B60',
@@ -49,7 +49,7 @@ class Wheel extends React.Component {
   }
 
   addShit () {
-    this.state.data.push({name: 'test4', count: 40});
+    this.state.data.push({name: '10000', count: 10});
     this.setState({data: this.state.data});
   }
 
@@ -62,8 +62,8 @@ class Wheel extends React.Component {
         <ReactTransitionGroup component='g' >
           {this.pie(this.state.data).map((d, i) => {
             // calculate labels position
-            let midAngle = d.endAngle < Math.PI ? d.startAngle / 2 + d.endAngle / 2 : d.startAngle / 2 + d.endAngle / 2 + Math.PI;
-            let center = `translate(${this.arc.centroid(d)}) rotate(-90) rotate(${midAngle * 180 / Math.PI})`;
+            let midAngle = d.startAngle / 2 + d.endAngle / 2;
+            let center = `translate(${this.arc.centroid(d)}) rotate(${midAngle * 180 / Math.PI})`;
             // create sector
             return <Sector fill={this.color(i)} d={this.arc(d)} i={i} key={i} data={d} center={center} />;
           })}
