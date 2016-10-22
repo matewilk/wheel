@@ -5,6 +5,57 @@ import {Card, CardHeader, CardMedia, CardActions, RaisedButton, TextField} from 
 import Svg from './Svg';
 
 class MainCard extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      data: [],
+      add: {
+        disabled: true
+      },
+      remove: {
+        disabled: true
+      },
+      amount: ''
+    };
+  }
+
+  componentDidMount () {
+    var data = [
+      {id: 0, name: '10', count: 10},
+      {id: 1, name: '20', count: 10},
+      {id: 2, name: '30', count: 10},
+      {id: 3, name: '40', count: 10},
+      {id: 4, name: '50', count: 10}
+    ];
+
+    this.setState({data: data});
+  }
+
+  addSector () {
+    this.state.data.push({
+      id: this.state.data.length + 1,
+      name: this.state.amount,
+      count: 10
+    });
+
+    this.setState({
+      data: this.state.data,
+      amount: '',
+      add: {
+        disabled: true
+      }
+    });
+  }
+
+  disableAddButton (element, value) {
+    this.setState({
+      add: {
+        disabled: value === ''
+      },
+      amount: value
+    });
+  }
+
   render () {
     return (
       <Card style={{textAlign: 'initial'}}>
@@ -13,27 +64,38 @@ class MainCard extends React.Component {
           subtitle='Card Subtitle'
         />
         <CardMedia style={{height: '50%', width: '50%', left: '25%'}}>
-          <Svg {...this.props} />
-          <TextField
-            hintText={'50'}
-            floatingLabelText={'Amount'}
-          />
-          <Row between='xs' style={{width: 'none', maxWidth: 'none'}}>
-            <Col xs={6}>
-              <RaisedButton
-                label='Add'
-                primary={true}
-                fullWidth={true}
-              />
-            </Col>
-            <Col xs={6}>
-              <RaisedButton
-                label='Remove'
-                secondary={true}
-                fullWidth={true}
-              />
-            </Col>
-          </Row>
+          <Svg message={this.props.message} data={this.state.data} />
+          <form >
+            <TextField
+              name='amount'
+              type='text'
+              ref='amount'
+              fullWidth={true}
+              value={this.state.amount}
+              hintText={'50'}
+              floatingLabelText={'Amount'}
+              onChange={this.disableAddButton.bind(this)}
+            />
+            <Row between='xs' style={{width: 'none', maxWidth: 'none'}}>
+              <Col xs={6}>
+                <RaisedButton
+                  label='Add'
+                  primary={true}
+                  fullWidth={true}
+                  onTouchTap={this.addSector.bind(this)}
+                  disabled={this.state.add.disabled}
+                />
+              </Col>
+              <Col xs={6}>
+                <RaisedButton
+                  label='Remove'
+                  secondary={true}
+                  fullWidth={true}
+                  disabled={this.state.remove.disabled}
+                />
+              </Col>
+            </Row>
+          </form>
         </CardMedia>
         <CardActions>
           <RaisedButton

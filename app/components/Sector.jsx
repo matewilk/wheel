@@ -14,6 +14,31 @@ class Sector extends React.Component {
       .duration(2000).ease(d3.easeCubicInOut);
   }
 
+  componentDidMount () {
+    let node = ReactDOM.findDOMNode(this);
+    d3.select(node)
+      .on('mouseover', () => {
+        d3.select(node)
+          .transition()
+          .duration(500)
+          .ease(d3.easeBounceOut)
+          .attr('transform', (d) => {
+            let dist = 3;
+            let midAngle = ((this.props.data.endAngle - this.props.data.startAngle) / 2) + this.props.data.startAngle;
+            var x = Math.sin(midAngle) * dist;
+            var y = -Math.cos(midAngle) * dist;
+            return 'translate(' + x + ',' + y + ')';
+          });
+      })
+      .on('mouseout', () => {
+        d3.select(node)
+          .transition()
+          .duration(500)
+          .ease(d3.easeBounceOut)
+          .attr('transform', 'translate(0, 0)');
+      });
+  }
+
   componentWillEnter (callback) {
     let node = d3.select(ReactDOM.findDOMNode(this));
 
